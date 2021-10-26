@@ -1,0 +1,11 @@
+{
+  "name": "001",
+  "version": "1.0.0",
+  "description": "ES6 JS Slider (John Smigla Project)",
+  "main": "app.js",
+  "scripts": {
+    "devserver": "live-server"
+  },
+  "author": "drronidz",
+  "license": "ISC"
+}
