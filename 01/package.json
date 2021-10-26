@@ -1,0 +1,12 @@
+{
+  "name": "01",
+  "version": "1.0.0",
+  "description": "Slider 01 John Smigla Project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "devserver": "live-server"
+  },
+  "author": "drronidz",
+  "license": "ISC"
+}
