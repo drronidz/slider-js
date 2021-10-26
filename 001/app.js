@@ -1,36 +1,74 @@
-import people from './data.js'
-
-
+import data from './data.js'
 const container = document.querySelector('.slide-container')
 const nextBtn = document.querySelector('.next-btn')
 const prevBtn = document.querySelector('.prev-btn')
+// if length is 1 hide buttons
+if (data.length === 1) {
+    nextBtn.style.display = 'none'
+    prevBtn.style.display = 'none'
+}
+// if length is 2, add copies of slides
+let people = [...data]
+if (data.length === 2) {
+    people = [...data, ...data]
+}
+container.innerHTML = people
+    .map((person, slideIndex) => {
+        const { img, name, job, text } = person
+        let position = 'slide__next'
+        if (slideIndex === 0) {
+            position = 'slide__active'
+        }
+        if (slideIndex === people.length - 1) {
+            position = 'slide__last'
+        }
+        if (data.length <= 1) {
+            position = 'slide__active'
+        }
+        return `<article class="slide ${position}">
+  <img src=${img} class="img" alt="${name}"/>
+  <h4>${name}</h4>
+  <p class="title">${job}</p>
+  <p class="text">
+   ${text}
+  </p>
+<div class="quote-icon">
+<i class="fas fa-quote-right"></i>
+</div>
+ </article>`
+    })
+    .join('')
 
-// Set slides
-container.innerHTML = people.map((person, slideIndex) => {
-    const {img, name, job, text} = person
-    // Logic
-    let position = 'slide__next'
-
-    if(slideIndex === 0) {
-        position = 'slide__active'
+const startSlider = (type) => {
+    // get all three slides active,last next
+    const active = document.querySelector('.slide__active')
+    const last = document.querySelector('.slide__last')
+    let next = active.nextElementSibling
+    if (!next) {
+        next = container.firstElementChild
     }
+    active.classList.remove('slide__active')
+    last.classList.remove('slide__last')
+    next.classList.remove('slide__next')
 
-    if(slideIndex === people.length - 1) {
-        position = 'slide__last'
+    if (type === 'prev') {
+        active.classList.add('slide__next')
+        last.classList.add('slide__active')
+        next = last.previousElementSibling
+        if (!next) {
+            next = container.lastElementChild
+        }
+        next.classList.remove('slide__next')
+        next.classList.add('slide__last')
+        return
     }
-
-    return ` <article class="slide ${position}">
-          <img src="${img}"
-               alt="${name}"
-               class="img">
-          <h4>${name}</h4>
-          <p class="title">${job}</p>
-          <p class="text">
-           ${text}
-          </p>
-          <div class="quote-icon">
-            <div class="fas fa-quote-right">
-            </div>
-          </div>
-        </article>`
-}).join('')
+    active.classList.add('slide__last')
+    last.classList.add('slide__next')
+    next.classList.add('slide__active')
+}
+nextBtn.addEventListener('click', () => {
+    startSlider()
+})
+prevBtn.addEventListener('click', () => {
+    startSlider('prev')
+})

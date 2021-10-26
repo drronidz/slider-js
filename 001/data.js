@@ -1,4 +1,4 @@
-const people = [
+const data = [
   {
     img:
       "https://res.cloudinary.com/diqqf3eq2/image/upload/c_scale,w_200/v1595959121/person-1_aufeoq.jpg",
@@ -22,4 +22,4 @@ const people = [
   },
 ];
 
-export default people
+export default data
